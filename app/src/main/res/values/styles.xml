@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- Base application theme. ↓如果设置parent="Theme.AppCompat.NoActionBar"，UI颜色会根据系统变化。↓↓-->
+    <!-- 侧边栏模板生成时默认是Theme.AppCompat.Light.DarkActionBar↓-->
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/pkured</item>
+    </style>
+
+</resources>
