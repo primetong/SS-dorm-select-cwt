@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_individual"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context="chenwt.pku.edu.cn.ssdormselect.MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="45.0dp"
+        android:background="@color/pkured"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/title_back_login"
+            android:layout_width="45.0dp"
+            android:layout_height="45.0dp"
+            android:src="@drawable/back_normal" />
+
+        <ImageView
+            android:id="@+id/title_seperator"
+            android:layout_width="1.0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="2.0dp"
+            android:layout_toRightOf="@+id/title_back_login"
+            android:background="#A71717" />
+
+        <TextView
+            android:id="@+id/title_city_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/title_seperator"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="个人信息"
+            android:textColor="@color/white"
+            android:textSize="22.0sp" />
+
+        <ImageView
+            android:id="@+id/title_update_btn"
+            android:layout_width="45.0dip"
+            android:layout_height="45.0dip"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:src="@drawable/title_update"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/individual_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="姓名 ： 测试姓名"
+            android:textColor="@color/gray"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/individual_studentid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="学号 ： 1701210000"
+            android:textColor="@color/gray"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/individual_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="性别 ： 男"
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/individual_grade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="年级 ： 2017"
+            android:textColor="@color/gray"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/individual_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="校区 ： 大兴"
+            android:textColor="@color/gray"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/individual_building"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="楼号 ： 5"
+            android:visibility="gone"
+            android:textColor="@color/gray"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/individual_room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="宿舍号 ： 5101"
+            android:visibility="gone"
+            android:textColor="@color/gray"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/individual_vcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="校验码 ： 123123"
+            android:textColor="@color/gray"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/individual_next_btn"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/pkured"
+            android:text="确认无误，开始办理住宿"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/individual_over_tv"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="@color/pkured"
+            android:text="住宿已办理成功！"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textSize="24sp"/>
+
+        <ImageView
+            android:id="@+id/attention_or_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="8dp"
+            android:src="@drawable/individual_attention"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

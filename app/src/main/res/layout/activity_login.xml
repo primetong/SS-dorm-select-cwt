@@ -45,8 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_student_id"
-                    android:inputType="number"
-                    android:maxLength="10"
+                    android:maxLength="11"
                     android:maxLines="1"
                     android:textColor="@color/white"
                     android:singleLine="true" />
@@ -90,17 +89,17 @@
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:background="@color/pkured"/>
-            <Button
-                android:id="@+id/student_id_register_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="注 册"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:background="@color/pkured"/>
+            <!--<Button-->
+                <!--android:id="@+id/student_id_register_button"-->
+                <!--style="?android:textAppearanceSmall"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--android:text="注 册"-->
+                <!--android:textSize="24sp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:background="@color/pkured"/>-->
 
         </LinearLayout>
     </ScrollView>

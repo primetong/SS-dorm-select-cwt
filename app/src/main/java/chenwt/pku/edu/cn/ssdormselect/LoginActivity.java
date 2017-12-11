@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -25,6 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,8 +41,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -53,6 +54,7 @@ import okhttp3.Response;
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
+ * Created by witt on 2017/11/11.
  * A login screen that offers login via student_id/password.
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
@@ -66,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓*/
-    private static final String[] DUMMY_CREDENTIALS = new String[]{     //DUMMY_CREDENTIALS用于模拟可通过验证的："账户:密码"
+    private static final String[] DUMMY_CREDENTIALS = new String[]{     //DUMMY_CREDENTIALS用于模拟可通过验证的："账户:密码"，方便离线调试
             "1701210346:hello", "1700000000:world"
     };
 
@@ -83,12 +85,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private SharedPreferences sp; //实例化SharedPreference对象，用于存储记住密码所保存的用户名和密码
 
-    private final OkHttpClient client;
-    public LoginActivity() throws Exception {
+    private OkHttpClient client;
+
+    public LoginActivity() throws Exception {       //修改后的初始化OKHttpClient配置，对Https的认证全部信任（有一定危险）
         client = new OkHttpClient.Builder()
                 .connectTimeout(2, TimeUnit.SECONDS)        //设置连接超时时间为2s
 /*                .writeTimeout(10, TimeUnit.SECONDS)         //设置读取的超时时间
                 .readTimeout(30, TimeUnit.SECONDS)          //设置写入的超时时间*/
+                .sslSocketFactory(TrustAllCerts.createSSLSocketFactory())
+                .hostnameVerifier(new HostnameVerifier() {
+                    @Override
+                    public boolean verify(String hostname, SSLSession session) {
+                        return true;
+                    }
+                })
                 .build();
     }
 
@@ -103,7 +113,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         //先判断记住密码是否被勾选中，如果被选中则判断是否登陆过，如果登陆过，直接登陆
         Intent intent = new Intent(this,MainActivity.class);
-//        intent.putExtra("com.witt.administrator.dininggo.USER",sp.getString("USER_NAME",""));
         if (sp.getBoolean("isREMEMBER",false)){
             if (sp.getBoolean("isLOAD",false)){     //.getBoolean是取出"键"所存的Boolean值，第一个参数是键名，第二个参数是默认值
                 startActivity(intent);
@@ -256,23 +265,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     //↓判断用户输入的学号是否合法，后面可以再更新学号的正则表达式（regExp,Regular Expression，规则表达式）
     private boolean isStudentIDValid(String studentid) {
 
-/*        //TODO: Replace this with your own logic
-        return studentid.contains("@");//原来的模板用的是电子邮箱的判断    */
-
-        /**
-         * 大陆手机号码11位数，匹配格式：前三位固定格式+后8位任意数
-         * 此方法中前三位格式有：
-         * 13+任意数
-         * 15+除4的任意数
-         * 18+除1和4的任意数（自己用的181，加了个181）
-         * 17+除9的任意数
-         * 147
-         */
-//        String regExp = "^((13[0-9])|(15[^4])|(18[0-3,5-9])|(17[0-8])|(147))\\d{8}$";
-//        Pattern p = Pattern.compile(regExp);
-//        Matcher m = p.matcher(studentid);
-//        return m.matches();
-        return studentid.contains("17");
+        //TODO: Replace this with your own logic
+        return true;    //不给学号加正则（因为学号没有固定规律）
     }
 
 
@@ -391,37 +385,36 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
          */
         @Override
         protected Boolean doInBackground(Void... params) {  //Void... params 等价于Void[] params，即多个参数？
-/*            // TODO: attempt authentication against a network service.
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }*/
+           // TODO: attempt authentication against a network service.
 
-            RequestBody formBody = new FormBody.Builder()       //使用OKHttp向服务器验证账号和密码
-                    .add("user",mStudentID)
-                    .add("pwd",mPassword)
-                    .build();
+//            RequestBody formBody = new FormBody.Builder()       //使用OKHttp的POST方法向服务器验证账号和密码（键值对）
+//                    .add("user",mCellphone)
+//                    .add("pwd",mPassword)
+//                    .build();
+            Log.d("MyApp", mStudentID + "：" + mPassword);
             Request request = new Request.Builder()
-                    .url("http://192.168.0.112:8080/DGAccount.jsp")     //配置URL
-                    .post(formBody)
+                    .url("https://api.mysspku.com/index.php/V1/MobileCourse/Login?username=" + mStudentID + "&password=" + mPassword) //配置URL，GET方式
+//                    .post(formBody)
                     .build();
             try {
                 Response response = client.newCall(request).execute();
                 if (!response.isSuccessful()) {
+                    Log.d("MyApp","unsucc+" + response.toString());
                     throw new IOException("Unexpected code" + response);
                 }
-                if (response.body().string().equals("true")){
+                if (response.body().string().equals("{\"errcode\":0,\"data\":{\"errmsg\":\"登录成功\"}}")){
+                    Log.d("MyApp","true+" + response.toString());
                     return true;
                 }
                 else {
+                    Log.d("MyApp","false+" + response.toString());
                     return false;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
+            Log.d("MyApp","NO");
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");            //非常聪明的用法，通过:（冒号）拆分一个字符串成pieces[0]和pieces[1]
                 if (pieces[0].equals(mStudentID)) {
@@ -474,52 +467,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 startActivity(intent);
             }
         };
-
-/*        public boolean volley_POST_user(){
-            String url = "http://192.168.0.112:8080/DGAccount.jsp";
-            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-            //Volley request，参数：请求方式，请求的URL，请求成功的回调，请求失败的回调
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                *//**
-         * 请求成功的回调
-         * @param response 请求返回的数据
-         *//*
-                @Override
-                public void onResponse(String response) {
-                    //TODO：处理返回结果
-                    if (response.equals("true")){
-                        result = true;
-                    }
-                    else {
-                        result = false;
-                    }
-                    Log.d("### onResponse","POST_StringRequest -> " + response);
-                }
-            }, new Response.ErrorListener() {
-                *//**
-         * 请求失败的回调
-         * @param error VolleyError
-         *//*
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //TODO：处理错误
-                    Log.e("### onResponse","POST_StringRequest -> response" + error.toString());
-                }
-            }){
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-
-                    Map<String, String> paraMap = new HashMap<>();
-                    //TODO：处理POST参数（在这里设置需要POST的参数）
-                    paraMap.put("user", mStudentID);
-                    paraMap.put("pwd", mPassword);
-                    return paraMap;
-                }
-            };
-            requestQueue.add(stringRequest);
-            return result;
-        }*/
-
     }
+
 }
 
