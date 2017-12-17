@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <!--<color name="colorPrimary">#3F51B5</color>-->
+    <color name="colorPrimary">#8C0000</color><!--北大红！CMYK值为C0,M100,Y100,K45，对应的RGB为140，0，0。-->
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 

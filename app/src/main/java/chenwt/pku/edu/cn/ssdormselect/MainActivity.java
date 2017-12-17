@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 })
                 .build();
 
-        String studentid = sp.getString("USER_NAME", "1700000000");
+        String studentid = sp.getString("STUDENTID", "1301210899");
         queryIndividualInf(studentid);
 
         mUpdateBtn.setOnClickListener(this);     //为刷新的图片控件设置监听事件
@@ -86,8 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.title_update_btn){    //如果点击到刷新，取出保存的城市代码（默认北京）去获取网络的天气信息
-            String studentid = sp.getString("USER_NAME", "1700000000");
+        if (v.getId() == R.id.title_update_btn){    //如果点击到刷新，取出保存的学号（默认1700000000）去获取用户个人信息
+            String studentid = sp.getString("STUDENTID", "1301210899");
             queryIndividualInf(studentid);
             Toast.makeText(MainActivity.this, "个人信息更新成功！", Toast.LENGTH_SHORT).show();
         }
@@ -101,9 +101,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             finish();
         }
         if (v.getId() == R.id.individual_next_btn){   //如果点击到开始办理住宿，则弹出后续的办理住宿界面到前端
-//            Intent intent = new Intent(this, LoginActivity.class);
-//            startActivity(intent);
-//            finish();
+            Intent intent = new Intent(this, DormSelectActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -206,6 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        userinfo.saveAllData(this);
         return userinfo;
     }
 

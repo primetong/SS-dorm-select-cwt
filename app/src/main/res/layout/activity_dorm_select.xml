@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_individual"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context="chenwt.pku.edu.cn.ssdormselect.MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/dorm_select_title"
+        android:layout_width="match_parent"
+        android:layout_height="45.0dp"
+        android:background="@color/maroon"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/dorm_select_back_individual"
+            android:layout_width="45.0dp"
+            android:layout_height="45.0dp"
+            android:src="@drawable/back_normal" />
+
+        <ImageView
+            android:id="@+id/dorm_select_separator"
+            android:layout_width="1.0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="2.0dp"
+            android:layout_toRightOf="@+id/dorm_select_back_individual"
+            android:background="#A71717" />
+
+        <TextView
+            android:id="@+id/title_city_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/dorm_select_separator"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="返回个人信息"
+            android:textColor="@color/white"
+            android:textSize="22.0sp" />
+
+        <ImageView
+            android:id="@+id/dorm_select_update_btn"
+            android:layout_width="45.0dip"
+            android:layout_height="45.0dip"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:src="@drawable/title_update"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_below="@id/dorm_select_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="chenwt.pku.edu.cn.ssdormselect.DormSelectActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_bar_height"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <include layout="@layout/content_dorm_select" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_margin="@dimen/fab_margin"
+            app:layout_anchor="@id/app_bar"
+            app:layout_anchorGravity="bottom|end"
+            app:srcCompat="@drawable/logo_pku_laugh"
+            app:fabSize="mini"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</RelativeLayout>

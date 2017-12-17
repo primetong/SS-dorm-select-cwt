@@ -457,7 +457,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void handleMessage(Message msg) {
                 //记住用户名、密码、记住密码状态
                 SharedPreferences.Editor editor = sp.edit();
-                editor.putString("USER_NAME",mStudentID);
+                editor.putString("STUDENTID",mStudentID);
                 editor.putString("PASSWORD",mPassword);
                 editor.putBoolean("isLOAD",true);
                 editor.commit();
