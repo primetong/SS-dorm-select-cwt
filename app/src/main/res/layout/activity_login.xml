@@ -21,14 +21,15 @@
         android:visibility="gone" />
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:src="@drawable/logo_pku_laugh"/>
 
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="100dp">
 
         <LinearLayout
             android:id="@+id/student_id_login_form"
@@ -36,54 +37,69 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <AutoCompleteTextView
-                    android:id="@+id/student_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/prompt_student_id"
-                    android:maxLength="11"
-                    android:maxLines="1"
-                    android:textColor="@color/white"
-                    android:singleLine="true" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/prompt_password"
-                    android:imeActionId="@+id/login"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:textColor="@color/white"
-                    android:singleLine="true" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <CheckBox
-                android:id="@+id/rememberPWDId"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="记住密码"
-                android:textColor="@color/white"/>
+                android:orientation="vertical"
+                android:background="@color/white">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/student_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:hint="@string/prompt_student_id"
+                        android:maxLength="11"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray_8f"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:hint="@string/prompt_password"
+                        android:imeActionId="@+id/login"
+                        android:imeActionLabel="@string/action_sign_in_short"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray_8f"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <CheckBox
+                    android:id="@+id/rememberPWDId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="记住密码"
+                    android:textColor="@color/black"
+                    android:background="@color/white"/>
+
+            </LinearLayout>
+
+
 
             <Button
                 android:id="@+id/student_id_sign_in_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="60dp"
                 android:text="@string/action_sign_in"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -115,6 +131,7 @@
             android:text="北京大学软件与微电子学院 版权所有
                    CopyRight@2017 Moblie ALL"
             android:textSize="12sp"
-            android:textColor="@color/gray_8f"/>
+            android:textColor="@color/black"
+            android:background="@color/white"/>
     </RelativeLayout>
 </LinearLayout>
